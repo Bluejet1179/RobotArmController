@@ -7,3 +7,6 @@ c:\users\ryan\documents\visual studio 2015\Projects\RobotArmControllerV1\RobotAr
 c:\users\ryan\documents\visual studio 2015\Projects\RobotArmControllerV1\RobotArmControllerV1\obj\Debug\RobotArmControllerV1.csproj.GenerateResource.Cache
 c:\users\ryan\documents\visual studio 2015\Projects\RobotArmControllerV1\RobotArmControllerV1\obj\Debug\RobotArmControllerV1.exe
 c:\users\ryan\documents\visual studio 2015\Projects\RobotArmControllerV1\RobotArmControllerV1\obj\Debug\RobotArmControllerV1.pdb
+C:\Users\Ryan\Source\Repos\RobotArmController\RobotArmController\RobotArmControllerV1\RobotArmControllerV1\bin\Debug\RobotArmControllerV1.exe.config
+C:\Users\Ryan\Source\Repos\RobotArmController\RobotArmController\RobotArmControllerV1\RobotArmControllerV1\obj\Debug\RobotArmControllerV1.exe
+C:\Users\Ryan\Source\Repos\RobotArmController\RobotArmController\RobotArmControllerV1\RobotArmControllerV1\obj\Debug\RobotArmControllerV1.pdb

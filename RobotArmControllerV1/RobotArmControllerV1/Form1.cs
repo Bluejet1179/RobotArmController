@@ -15,10 +15,12 @@ namespace RobotArmControllerV1
         int timeleft = 180;//seconds
         Boolean timerState;
         Boolean timerEnd = false;
+        Arduino mega = new Arduino();
 
         public Form1()
         {
             InitializeComponent();
+            mega._SerialPort = SerialPort1;
 
 
 
@@ -27,30 +29,30 @@ namespace RobotArmControllerV1
 
         private void SerialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            String dataReceived = SerialPort1.ReadTo("h").ToString();//"a123b23c56d777e180f8g";
+            string[] potData = mega.getPotData();
             pot1.Invoke((MethodInvoker)(() =>
             {
-                pot1.Text = dataReceived.Substring(dataReceived.IndexOf('a') + 1, dataReceived.IndexOf('b')- dataReceived.IndexOf('a') - 1);
+                pot1.Text = potData[0];
             }));
             pot2.Invoke((MethodInvoker)(() =>
             {
-                pot2.Text = dataReceived.Substring(dataReceived.IndexOf('b') + 1, dataReceived.IndexOf('c')- dataReceived.IndexOf('b') - 1);
+                pot2.Text = potData[1];
             }));
             pot3.Invoke((MethodInvoker)(() =>
             {
-                pot3.Text = dataReceived.Substring(dataReceived.IndexOf('c') + 1, dataReceived.IndexOf('d') - dataReceived.IndexOf('c') - 1);
+                pot3.Text = potData[2];
             }));
             pot4.Invoke((MethodInvoker)(() =>
             {
-                pot4.Text = dataReceived.Substring(dataReceived.IndexOf('d') + 1, dataReceived.IndexOf('e') - dataReceived.IndexOf('d') - 1);
+                pot4.Text = potData[3];
             }));
             pot5.Invoke((MethodInvoker)(() =>
             {
-                pot5.Text = dataReceived.Substring(dataReceived.IndexOf('e') + 1, dataReceived.IndexOf('f') - dataReceived.IndexOf('e') - 1);
+                pot5.Text = potData[4];
             }));
             pot6.Invoke((MethodInvoker)(() =>
             {
-                pot6.Text = dataReceived.Substring(dataReceived.IndexOf('f') + 1, dataReceived.IndexOf('g') - dataReceived.IndexOf('f') - 1);
+                pot6.Text = potData[5];
             }));
 
             //MessageBox.Show(SerialPort1.ReadTo("n").ToString());
@@ -131,6 +133,8 @@ namespace RobotArmControllerV1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            bool[] switches = { true, false, false, true };
+            mega.sendData(switches);
             if(timeleft == 0 && timerEnd == false)
             {
                 timerEnd = true;

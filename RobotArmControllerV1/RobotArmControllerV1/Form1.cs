@@ -13,6 +13,7 @@ namespace RobotArmControllerV1
     public partial class Form1 : Form
     {
         int timeleft = 180;//seconds
+        bool[] switches = { false, false, false };
         Boolean timerState;
         Boolean timerEnd = false;
         Arduino mega = new Arduino();
@@ -30,6 +31,7 @@ namespace RobotArmControllerV1
         private void SerialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             string[] potData = mega.getPotData();
+            //mega.sendData(switches);
             pot1.Invoke((MethodInvoker)(() =>
             {
                 pot1.Text = potData[0];
@@ -92,6 +94,11 @@ namespace RobotArmControllerV1
                 SerialPort1.Open();
                 buttonConnect.Visible = false;
                 buttonDisconnect.Visible = true;
+                laserOnButton.Enabled = true;
+                laserOffButton.Enabled = true;
+                plowButton.Enabled = true;
+                masterSlaveButton.Enabled = true;
+                homeButton.Enabled = true;
                 MessageBox.Show("Connected to " + portComboBox.SelectedItem.ToString() + " at " + baudRateComboBox.SelectedItem.ToString());
             }
         }
@@ -101,41 +108,18 @@ namespace RobotArmControllerV1
             SerialPort1.Close();
             buttonConnect.Visible = true;
             buttonDisconnect.Visible = false;
+            laserOnButton.Enabled = false;
+            laserOffButton.Enabled = false;
+            plowButton.Enabled = false;
+            masterSlaveButton.Enabled = false;
+            homeButton.Enabled = false;
             MessageBox.Show("Disconnected from " + portComboBox.SelectedItem.ToString());
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void pot1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void portComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            
-
-        }
-
-        private void baudRateComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
- 
-
         private void timer1_Tick(object sender, EventArgs e)
         {
-            bool[] switches = { true, false, false, true };
             mega.sendData(switches);
-            if(timeleft == 0 && timerEnd == false)
+            if (timeleft == 0 && timerEnd == false)
             {
                 timerEnd = true;
                 System.Media.SystemSounds.Beep.Play();
@@ -181,6 +165,50 @@ namespace RobotArmControllerV1
             timeleft = 180;
             timerState = false;
             timerEnd = false;
+        }
+
+        private async void plowButton_Click(object sender, EventArgs e)
+        {
+            switches[0] = true;
+            await Task.Delay(1000);
+            switches[0] = false;
+            
+        }
+
+        private void masterSlaveButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (masterSlaveButton.Checked)
+            {
+                homeButton.Checked = false;
+                switches[1] = true;
+            }
+        }
+
+        private void homeButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (homeButton.Checked)
+            {
+                masterSlaveButton.Checked = false;
+                switches[1] = false;
+            }
+        }
+
+        private void laserOnButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (laserOnButton.Checked)
+            {
+                laserOffButton.Checked = false;
+                switches[2] = true;
+            }
+        }
+
+        private void laserOffButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (laserOffButton.Checked)
+            {
+                laserOnButton.Checked = false;
+                switches[2] = false;
+            }
         }
     }
 }

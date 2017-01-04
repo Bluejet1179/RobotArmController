@@ -36,8 +36,8 @@ namespace RobotArmControllerV1
 
         }
         public void sendData(bool[] dataToBeSent)
-        {
-            char[] dataOut = {'y', '0', '0', '0', '0', 'z' };
+        {                      
+            char[] dataOut = {'y', '0', '0', '0', 'z' };//plow, masterslave, laser
              for(int i = 0; i < dataOut.Length-2; i++)
             {
                 if (dataToBeSent[i])

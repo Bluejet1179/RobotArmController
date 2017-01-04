@@ -58,7 +58,17 @@
             this.stopTimerButton = new System.Windows.Forms.Button();
             this.resetTimerButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.plowButton = new System.Windows.Forms.Button();
+            this.masterSlaveButton = new System.Windows.Forms.RadioButton();
+            this.homeButton = new System.Windows.Forms.RadioButton();
+            this.laserOnButton = new System.Windows.Forms.RadioButton();
+            this.laserOffButton = new System.Windows.Forms.RadioButton();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // pot1
@@ -70,7 +80,6 @@
             this.pot1.ReadOnly = true;
             this.pot1.Size = new System.Drawing.Size(100, 26);
             this.pot1.TabIndex = 0;
-            this.pot1.TextChanged += new System.EventHandler(this.pot1_TextChanged);
             // 
             // pot2
             // 
@@ -163,7 +172,6 @@
             this.baudRateComboBox.Name = "baudRateComboBox";
             this.baudRateComboBox.Size = new System.Drawing.Size(121, 28);
             this.baudRateComboBox.TabIndex = 7;
-            this.baudRateComboBox.SelectedIndexChanged += new System.EventHandler(this.baudRateComboBox_SelectedIndexChanged);
             // 
             // portComboBox
             // 
@@ -173,7 +181,6 @@
             this.portComboBox.Name = "portComboBox";
             this.portComboBox.Size = new System.Drawing.Size(121, 28);
             this.portComboBox.TabIndex = 7;
-            this.portComboBox.SelectedIndexChanged += new System.EventHandler(this.portComboBox_SelectedIndexChanged_1);
             // 
             // buttonDisconnect
             // 
@@ -264,7 +271,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(706, 201);
+            this.label9.Location = new System.Drawing.Point(824, 224);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(178, 20);
             this.label9.TabIndex = 14;
@@ -324,16 +331,112 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Timer";
             // 
+            // plowButton
+            // 
+            this.plowButton.Location = new System.Drawing.Point(6, 25);
+            this.plowButton.Name = "plowButton";
+            this.plowButton.Size = new System.Drawing.Size(123, 37);
+            this.plowButton.TabIndex = 20;
+            this.plowButton.Text = "Activate Plow";
+            this.plowButton.UseVisualStyleBackColor = true;
+            this.plowButton.Click += new System.EventHandler(this.plowButton_Click);
+            this.plowButton.Enabled = false;
+            // 
+            // masterSlaveButton
+            // 
+            this.masterSlaveButton.AutoSize = true;
+            this.masterSlaveButton.Location = new System.Drawing.Point(647, 158);
+            this.masterSlaveButton.Name = "masterSlaveButton";
+            this.masterSlaveButton.Size = new System.Drawing.Size(182, 24);
+            this.masterSlaveButton.TabIndex = 21;
+            this.masterSlaveButton.Text = "Master-Slave Control";
+            this.masterSlaveButton.UseVisualStyleBackColor = true;
+            this.masterSlaveButton.Enabled = false;
+            this.masterSlaveButton.CheckedChanged += new System.EventHandler(this.masterSlaveButton_CheckedChanged);
+            // 
+            // homeButton
+            // 
+            this.homeButton.AutoSize = true;
+            this.homeButton.Checked = true;
+            this.homeButton.Location = new System.Drawing.Point(647, 189);
+            this.homeButton.Name = "homeButton";
+            this.homeButton.Size = new System.Drawing.Size(137, 24);
+            this.homeButton.TabIndex = 22;
+            this.homeButton.TabStop = true;
+            this.homeButton.Text = "Home Position";
+            this.homeButton.UseVisualStyleBackColor = true;
+            this.homeButton.Enabled = false;
+            this.homeButton.CheckedChanged += new System.EventHandler(this.homeButton_CheckedChanged);
+            // 
+            // laserOnButton
+            // 
+            this.laserOnButton.AutoSize = true;
+            this.laserOnButton.Location = new System.Drawing.Point(6, 25);
+            this.laserOnButton.Name = "laserOnButton";
+            this.laserOnButton.Size = new System.Drawing.Size(55, 24);
+            this.laserOnButton.TabIndex = 23;
+            this.laserOnButton.Text = "On";
+            this.laserOnButton.UseVisualStyleBackColor = true;
+            this.laserOnButton.Enabled = false;
+            this.laserOnButton.CheckedChanged += new System.EventHandler(this.laserOnButton_CheckedChanged);
+            // 
+            // laserOffButton
+            // 
+            this.laserOffButton.AutoSize = true;
+            this.laserOffButton.Checked = true;
+            this.laserOffButton.Location = new System.Drawing.Point(5, 51);
+            this.laserOffButton.Name = "laserOffButton";
+            this.laserOffButton.Size = new System.Drawing.Size(56, 24);
+            this.laserOffButton.TabIndex = 24;
+            this.laserOffButton.TabStop = true;
+            this.laserOffButton.Text = "Off";
+            this.laserOffButton.UseVisualStyleBackColor = true;
+            this.laserOffButton.Enabled = false;
+            this.laserOffButton.CheckedChanged += new System.EventHandler(this.laserOffButton_CheckedChanged);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.laserOffButton);
+            this.groupBox4.Controls.Add(this.laserOnButton);
+            this.groupBox4.Location = new System.Drawing.Point(913, 34);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(74, 83);
+            this.groupBox4.TabIndex = 25;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Laser";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Location = new System.Drawing.Point(630, 138);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(222, 83);
+            this.groupBox5.TabIndex = 26;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Mode";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.plowButton);
+            this.groupBox6.Location = new System.Drawing.Point(858, 147);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(144, 74);
+            this.groupBox6.TabIndex = 27;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Plow";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(902, 232);
+            this.ClientSize = new System.Drawing.Size(1008, 259);
+            this.Controls.Add(this.homeButton);
+            this.Controls.Add(this.masterSlaveButton);
             this.Controls.Add(this.resetTimerButton);
             this.Controls.Add(this.stopTimerButton);
             this.Controls.Add(this.startTimerButton);
             this.Controls.Add(this.timerTextBox);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -350,6 +453,8 @@
             this.Controls.Add(this.pot1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBox5);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -358,6 +463,9 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -392,6 +500,14 @@
         private System.Windows.Forms.Button stopTimerButton;
         private System.Windows.Forms.Button resetTimerButton;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button plowButton;
+        private System.Windows.Forms.RadioButton masterSlaveButton;
+        private System.Windows.Forms.RadioButton homeButton;
+        private System.Windows.Forms.RadioButton laserOnButton;
+        private System.Windows.Forms.RadioButton laserOffButton;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox6;
     }
 }
 

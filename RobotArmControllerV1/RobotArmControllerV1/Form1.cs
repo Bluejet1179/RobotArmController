@@ -16,47 +16,71 @@ namespace RobotArmControllerV1
         bool[] switches = { false, false, false };
         Boolean timerState;
         Boolean timerEnd = false;
-        Arduino mega = new Arduino();
 
         public Form1()
         {
             InitializeComponent();
-            mega._SerialPort = SerialPort1;
 
 
 
             SerialPort1.DataReceived += SerialPort1_DataReceived;
         }
 
+        private void sendData(bool[] dataToBeSent)
+        {
+            char[] dataOut = { '0', '0', '0'};//plow, masterslave, laser
+            for (int i = 0; i < 3; i++)
+            {
+                if (dataToBeSent[i])
+                {
+                    dataOut[i] = '1';
+                }
+                else
+                {
+                    dataOut[i] = '0';
+                }
+            }
+            String dataOutString = new string(dataOut);
+            Console.WriteLine(dataOutString);
+            SerialPort1.WriteLine(dataOutString);
+        }
+    
+        
         private void SerialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            string[] potData = mega.getPotData();
-            //mega.sendData(switches);
+            string dataReceived = "0000a0b0c0d0e0f0gh00000000000000000";
+             //dataReceived = SerialPort1.ReadTo("h");
             pot1.Invoke((MethodInvoker)(() =>
             {
-                pot1.Text = potData[0];
+                pot1.Text = dataReceived.Substring(dataReceived.IndexOf('a') + 1, dataReceived.IndexOf('b') - dataReceived.IndexOf('a') - 1);
+
             }));
             pot2.Invoke((MethodInvoker)(() =>
             {
-                pot2.Text = potData[1];
+                pot2.Text = dataReceived.Substring(dataReceived.IndexOf('b') + 1, dataReceived.IndexOf('c') - dataReceived.IndexOf('b') - 1);
+
             }));
             pot3.Invoke((MethodInvoker)(() =>
             {
-                pot3.Text = potData[2];
+                pot3.Text =dataReceived.Substring(dataReceived.IndexOf('c') + 1, dataReceived.IndexOf('d') - dataReceived.IndexOf('c') - 1);
+
             }));
             pot4.Invoke((MethodInvoker)(() =>
             {
-                pot4.Text = potData[3];
+                pot4.Text = dataReceived.Substring(dataReceived.IndexOf('d') + 1, dataReceived.IndexOf('e') - dataReceived.IndexOf('d') - 1);
+
             }));
             pot5.Invoke((MethodInvoker)(() =>
             {
-                pot5.Text = potData[4];
+                pot5.Text = dataReceived.Substring(dataReceived.IndexOf('e') + 1, dataReceived.IndexOf('f') - dataReceived.IndexOf('e') - 1);
             }));
             pot6.Invoke((MethodInvoker)(() =>
             {
-                pot6.Text = potData[5];
+                pot6.Text = dataReceived.Substring(dataReceived.IndexOf('f') + 1, dataReceived.IndexOf('g') - dataReceived.IndexOf('f') - 1);
             }));
-
+            //SerialPort1.DiscardInBuffer();
+            SerialPort1.DiscardOutBuffer();
+            //sendData(switches);
             //MessageBox.Show(SerialPort1.ReadTo("n").ToString());
         }
 
@@ -118,7 +142,12 @@ namespace RobotArmControllerV1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            mega.sendData(switches);
+            if (SerialPort1.IsOpen)
+            {
+                sendData(switches);
+                SerialPort1.DiscardInBuffer();
+                SerialPort1.DiscardOutBuffer();
+            }
             if (timeleft == 0 && timerEnd == false)
             {
                 timerEnd = true;
@@ -167,10 +196,11 @@ namespace RobotArmControllerV1
             timerEnd = false;
         }
 
-        private async void plowButton_Click(object sender, EventArgs e)
+        private void plowButton_Click(object sender, EventArgs e)
         {
             switches[0] = true;
-            await Task.Delay(1000);
+            //await Task.Delay(1000);
+            //for (int i = 0; i < 1000; i++) ;
             switches[0] = false;
             
         }

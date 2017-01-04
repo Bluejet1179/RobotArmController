@@ -35,28 +35,6 @@ namespace RobotArmControllerV1
             }
 
         }
-        public void sendData(bool[] dataToBeSent)
-        {                      
-            char[] dataOut = {'y', '0', '0', '0', 'z' };//plow, masterslave, laser
-             for(int i = 0; i < dataOut.Length-2; i++)
-            {
-                if (dataToBeSent[i])
-                {
-                    dataOut[i + 1] = '1';
-                }else
-                {
-                    dataOut[i + 1] = '0';
-                }
-            }
-            String dataOutString = new string(dataOut);
-            Console.WriteLine(dataOutString);
-            if (_SerialPort.IsOpen)
-            {
-                _SerialPort.WriteLine(dataOutString);
-            }else
-            {
-                Console.WriteLine("Serial Port Closed");
-            }
-        }
+        
     }
 }
